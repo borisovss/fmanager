@@ -3,7 +3,18 @@
 # For more information, please see the documentation at:
 #   https://docs.haskellstack.org/en/stable/topics/lock_files
 
-packages: []
+packages:
+- completed:
+    commit: 832da5b49388fe026d90e27e1c28b816b480fbe2
+    git: https://github.com/borisovss/haskell-ncurses.git
+    name: ncurses
+    pantry-tree:
+      sha256: 57744016f0b75bfd1fc14e39a20a38765434f1130bca6bb5fd3ae585063b07f5
+      size: 674
+    version: 0.2.16
+  original:
+    commit: 832da5b49388fe026d90e27e1c28b816b480fbe2
+    git: https://github.com/borisovss/haskell-ncurses.git
 snapshots:
 - completed:
     sha256: dd89d2322cb5af74c6ab9d96c0c5f6c8e6653e0c991d619b4bb141a49cb98668
