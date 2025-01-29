@@ -14,26 +14,35 @@ import UI.NCurses
 
 
 
---showCurses :: Curses (Integer, Integer) -> String
---showCurses y  = show y
+--showCurses :: Curses (Integer, Integer) -> IO String
+--showCurses x = show x
+
+-- showCurses :: (Integer, Integer) -> IO ()
+-- showCurses (x, y) = do
+--     --(x,y) <- v
+--     -- putStrLn . show $ x
+--     putStrLn "A"
 
 main :: IO ()
-main = runCurses $ do
-    setEcho False
+main = runCurses $ createCurses
 
-    --print (showCurses size1)
 
-    w <- defaultWindow
-    updateWindow w $ do
-        moveCursor 1 10
-        drawString "Hello world!"
-        moveCursor 3 10
-        drawString "(press q to quit)"
-        moveCursor 0 0
-    render
-    waitFor w (\ev -> ev == EventCharacter 'q' || ev == EventCharacter 'Q')
-    where
-        size1 = screenSize
+-- main :: IO ()
+-- main = runCurses $ do
+--     setEcho False
+
+--     (maxRows, maxCols) <- screenSize
+--     --print "Hello"
+
+--     w <- defaultWindow
+--     updateWindow w $ do
+--         moveCursor 1 10
+--         drawString "Hello world!"
+--         moveCursor 3 10
+--         drawString "(press q to quit)"
+--         moveCursor 0 0
+--     render
+--     waitFor w (\ev -> ev == EventCharacter 'q' || ev == EventCharacter 'Q')
 
 waitFor :: Window -> (Event -> Bool) -> Curses ()
 waitFor w p = loop where
@@ -43,3 +52,42 @@ waitFor w p = loop where
             Nothing -> loop
             Just ev' -> if p ev' then return () else loop
 
+createCurses :: Curses ()
+createCurses = do
+    setEcho False
+
+    --w <- defaultWindow
+
+    --maxx <- getmaxx w
+
+    (maxRows, maxCols) <- screenSize
+    win1 <- newWindow maxCols (maxRows `div` 2) 0 0
+    win2 <- newWindow maxCols (maxRows `div` 2) 0 (maxRows `div` 2)
+
+    updateWindow win1 $ do
+        drawBox Nothing Nothing
+        moveCursor 1 1
+        drawString "Green"
+        moveCursor 2 1
+        drawString "Red"
+        moveCursor 3 1
+        drawString "Blue"
+        moveCursor 4 1
+        drawString "Black"
+
+    updateWindow win2 $ do
+        drawBox Nothing Nothing
+        moveCursor 1 1
+        drawString "Yellow"
+        moveCursor 2 1
+        drawString "Brown"
+
+    -- w <- defaultWindow
+    -- updateWindow w $ do
+    --     moveCursor 1 10
+    --     drawString "Hello world!"
+    --     moveCursor 3 10
+    --     drawString "(press q to quit)"
+    --     moveCursor 0 0
+    render
+    waitFor win1 (\ev -> ev == EventCharacter 'q' || ev == EventCharacter 'Q')
