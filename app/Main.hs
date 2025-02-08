@@ -61,8 +61,8 @@ createCurses = do
     --maxx <- getmaxx w
 
     (maxRows, maxCols) <- screenSize
-    win1 <- newWindow maxCols (maxRows `div` 2) 0 0
-    win2 <- newWindow maxCols (maxRows `div` 2) 0 (maxRows `div` 2)
+    win1 <- newWindow maxRows (maxCols `div` 2) 0 0
+    win2 <- newWindow maxRows (maxCols `div` 2) 0 (maxCols `div` 2) 
 
     updateWindow win1 $ do
         drawBox Nothing Nothing
