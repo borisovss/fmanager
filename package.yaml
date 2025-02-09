@@ -47,6 +47,7 @@ executables:
     - -with-rtsopts=-N
     dependencies:
     - fmanager
+    - directory
 
 tests:
   fmanager-test:
@@ -58,3 +59,4 @@ tests:
     - -with-rtsopts=-N
     dependencies:
     - fmanager
+    - directory
